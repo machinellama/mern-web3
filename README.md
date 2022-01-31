@@ -19,6 +19,10 @@ After answering questions:
 - An Express server can be run by running `yarn run dev` (on port 4070 by default)
 - If you opted to only include frontend or backend components, the run command will just be `yarn run dev` for the one included
 
+## Demo
+
+![screen-gif](./demo.gif)
+
 ## Features
 - ReactJS
   - Functional components

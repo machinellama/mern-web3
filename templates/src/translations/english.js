@@ -10,7 +10,7 @@ export default {
     connectMainnet: 'Please connect to Ethereum Mainnet',
     duplicateSignup: 'User already exists, unable to signup again',
     invalidLogin: 'Invalid login',
-    login: 'Log In with MetaMask',
+    login: 'Login with MetaMask',
     loginMetamask: 'Please login to MetaMask',
     logout: 'Log Out',
     password: 'Password',
