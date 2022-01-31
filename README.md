@@ -1,7 +1,7 @@
-# MachineLlama/MERN-Web3
+# machinellama/MERN-Web3
 
 Quickly create a simple MERN stack application with key features pre-built and ready to run.
-Includes web3 login/authentication using MetaMask!
+Includes web3 login/authentication using MetaMask and Ethereum!
 
 To run: `yarn install` and then `yarn start` to start the interactive CLI
 - Node and Yarn are required prerequisites
