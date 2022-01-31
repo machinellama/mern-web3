@@ -1,0 +1,40 @@
+{
+  "name": "{{package.projectName}}",
+  "version": "{{package.version}}",
+  "description": "{{package.description}}",
+  "main": "./src/index.tsx",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "webpack --mode production",
+    "start": "http-server ./dist --proxy http://localhost:{{webpack.port}}? -p {{webpack.port}}",
+    "dev": "webpack serve --mode development"
+  },
+  "repository": {
+    "type": "{{package.repositoryType}}",
+    "url": "{{package.repositoryURL}}"
+  },
+  "keywords": [
+    "React",
+    "TypeScript",
+    "Prettier",
+    "Webpack"
+  ],
+  "author": "{{package.author}}",
+  "license": "{{package.license}}",
+  "husky": {
+    "hooks": {
+      "pre-commit": [
+        "lint-staged"
+      ]
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,scss,sass}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}

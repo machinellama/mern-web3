@@ -1,0 +1,39 @@
+{
+  "name": "mern-setup",
+  "version": "1.0.0",
+  "description": "Setup script for a functional MERN application",
+  "scripts": {
+    "start": "node --es-module-specifier-resolution=node cli.js"
+  },
+  "main": "cli.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MachineLlama/mern-setup.git"
+  },
+  "type": "module",
+  "keywords": [
+    "MERN",
+    "Mongo",
+    "Express",
+    "React",
+    "Typescript",
+    "Node",
+    "Webpack",
+    "Sass",
+    "Babel",
+    "Prettier"
+  ],
+  "author": "MachineLlama",
+  "license": "MIT",
+  "homepage": "https://github.com/MachineLlama/mern-setup#readme",
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "deep-for-each": "^3.0.0",
+    "figlet": "^1.5.2",
+    "fs-extra": "^10.0.0",
+    "inquirer": "^8.2.0",
+    "lodash": "^4.17.21",
+    "string-replace-all": "^1.0.3"
+  },
+  "devDependencies": {}
+}

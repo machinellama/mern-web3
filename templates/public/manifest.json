@@ -1,0 +1,11 @@
+{
+  "background_color": "{{manifest.backgroundColor}}",
+  "description": "{{manifest.description}}",
+  "display": "{{manifest.display}}",
+  "icons": "{{manifest.icons}}",
+  "name": "{{manifest.name}}",
+  "orientation": "{{manifest.orientation}}",
+  "short_name": "{{manifest.shortName}}",
+  "start_url": "{{manifest.startURL}}",
+  "theme_color": "{{manifest.themeColor}}"
+}

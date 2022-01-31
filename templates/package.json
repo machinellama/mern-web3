@@ -1,0 +1,48 @@
+{
+  "name": "{{package.projectName}}",
+  "version": "{{package.version}}",
+  "description": "{{package.description}}",
+  "main": "./src/index.tsx",
+  "scripts": {
+    "clean": "rimraf dist",
+    "copy": "copyfiles -f ./public/_redirects ./dist",
+    "build": "yarn run clean && tsoa spec-and-routes && tsc && yarn run copy",
+    "build:web": "webpack --mode production",
+    "build:all": "yarn run build && yarn run build:web",
+    "start": "node ./dist/express/app.js",
+    "start:web": "http-server ./dist --proxy http://localhost:{{webpack.port}}? -p {{webpack.port}}",
+    "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
+    "dev:web": "webpack serve --mode development",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "{{package.repositoryType}}",
+    "url": "{{package.repositoryURL}}"
+  },
+  "keywords": [
+    "React",
+    "TypeScript",
+    "Node",
+    "Express",
+    "Prettier",
+    "Webpack"
+  ],
+  "author": "{{package.author}}",
+  "license": "{{package.license}}",
+  "husky": {
+    "hooks": {
+      "pre-commit": [
+        "lint-staged"
+      ]
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,scss,sass}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}

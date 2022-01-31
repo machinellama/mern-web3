@@ -1,0 +1,41 @@
+{
+  "name": "{{package.projectName}}",
+  "version": "{{package.version}}",
+  "description": "{{package.description}}",
+  "main": "./src/index.tsx",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "yarn run clean && tsoa spec-and-routes && tsc",
+    "start": "node ./dist/express/app.js",
+    "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "{{package.repositoryType}}",
+    "url": "{{package.repositoryURL}}"
+  },
+  "keywords": [
+    "TypeScript",
+    "Node",
+    "Express",
+    "Prettier"
+  ],
+  "author": "{{package.author}}",
+  "license": "{{package.license}}",
+  "husky": {
+    "hooks": {
+      "pre-commit": [
+        "lint-staged"
+      ]
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,scss,sass}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}

@@ -1,0 +1,92 @@
+@use "../../styles/colors" as colors;
+
+.navigation,
+.navigation__drawer {
+  .login-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+  }
+
+  .logout-row {
+    p {
+      word-wrap: break-word;
+      width: 200px;
+    }
+  }
+
+  .navigation__mobile-icon {
+    position: absolute;
+  }
+
+  .navigation__theme-select {
+    width: 110px;
+    height: 50px;
+  }
+
+  .navigation__language-select {
+    width: 110px;
+    height: 50px;
+  }
+
+  .navigation__main-items {
+    a {
+      text-decoration: none;
+      color: colors.$black;
+    }
+
+    .Mui-selected {
+      background-color: colors.$light-blue;
+      color: white;
+      font-weight: bold;
+
+      &:hover {
+        background-color: colors.$light-blue;
+      }
+    }
+  }
+
+  &.dark {
+    .MuiDrawer-paper {
+      background-color: colors.$black;
+    }
+
+    .navigation__drawer {
+      color: colors.$light-gray;
+    }
+
+    svg {
+      color: colors.$white;
+    }
+
+    .navigation__main-items {
+      a {
+        text-decoration: none;
+        color: colors.$white;
+      }
+    }
+
+    .navigation__theme-select {
+      color: colors.$light-gray;
+    }
+
+    .navigation__language-select {
+      color: colors.$light-gray;
+    }
+
+    .login-row {
+      .MuiButton-label {
+        color: colors.$white;
+      }
+    }
+  }
+}
+
+.navigation__drawer {
+  width: 235px;
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}

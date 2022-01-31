@@ -1,0 +1,163 @@
+@use '../../styles/colors' as colors;
+
+.characters {
+  height: calc(100vh - 20px);
+  padding: 10px 10px 10px 250px;
+
+  .characters__search-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 1000px;
+
+    .search-row__filters {
+      display: flex;
+    }
+
+    .search-row__sort {
+      margin-right: 30px;
+    }
+
+    .search-row__active-toggle {
+      margin: 20px 15px 0 0;
+    }
+  }
+
+  .characters__table-container {
+    height: calc(100vh - 80px);
+    width: 100%;
+    max-width: 1000px;
+
+    .MuiDataGrid-row {
+      cursor: pointer;
+    }
+  }
+
+  .characters__details {
+    .details__back {
+      color: colors.$medium-black;
+      cursor: pointer;
+      display: flex;
+
+      &:hover {
+        color: colors.$blue;
+        text-decoration: underline;
+      }
+
+      .details__back-text {
+        margin-left: 5px;
+        padding-top: 3px;
+      }
+    }
+
+    .details__container {
+      margin-top: 10px;
+
+      .MuiCardContent-root {
+        padding-bottom: 16px;
+      }
+
+      .details__name {
+        margin-bottom: 10px;
+      }
+
+      .details__info-card {
+        max-width: 800px;
+        width: max-content;
+
+        .pair {
+          display: flex;
+          margin-bottom: 5px;
+
+          .label {
+            color: colors.$blue;
+            font-weight: bold;
+            min-width: 75px;
+          }
+
+          .value {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+
+    hr {
+      border: 0;
+      border-bottom: 1px solid colors.$light-gray;
+    }
+
+    .details__accounts-table {
+      height: 500px;
+      margin-top: 15px;
+      max-width: 1000px;
+      width: 100%;
+    }
+  }
+
+  .MuiCircularProgress-root {
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 100px;
+  }
+
+  &.dark {
+    background-color: colors.$light-black;
+
+    .characters__table-container {
+      background-color: colors.$medium-black;
+
+      .MuiSvgIcon-root {
+        color: colors.$white;
+      }
+    }
+
+    .MuiInput-input {
+      color: colors.$white;
+    }
+
+    .characters__details {
+      .details__back {
+        color: colors.$white;
+
+        &:hover {
+          color: colors.$blue;
+        }
+      }
+
+      hr {
+        border-bottom: 1px solid colors.$white;
+      }
+
+      .details__name {
+        color: colors.$white;
+      }
+
+      .MuiCardContent-root {
+        background-color: colors.$black;
+        color: colors.$white;
+      }
+    }
+
+    .characters__error {
+      color: colors.$white;
+    }
+  }
+
+  @media (max-width: 959px) {
+    padding-left: 50px;
+  }
+
+  @media (max-width: 550px) {
+    .characters__search-row {
+      display: block;
+    }
+
+    .search-row__filters {
+      margin-top: 5px;
+    }
+  }
+}
