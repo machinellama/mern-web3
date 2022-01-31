@@ -9,7 +9,6 @@
  import { useSnackbar } from 'notistack';
  import { Menu, Palette, People, Translate } from '@mui/icons-material';
  import {
-   Box,
    Button,
    Divider,
    Drawer,
@@ -94,10 +93,11 @@
                    .send({ address: signedMessage.publicAddress, signature: signedMessage.signature })
                    .then(async (newUser) => {
                      const token = newUser?.body?.token;
+                     const checksumAddress = newUser?.body?.address;
  
                      props.setContext({
                        ...userContext,
-                       address: signedMessage.publicAddress,
+                       address: checksumAddress,
                        token
                      });
                    });
@@ -189,16 +189,6 @@
        </List>
      </div>
    );
- 
-   function TabPanel(props) {
-     const { children, value, index, ...other } = props;
- 
-     return (
-       <div role="tabpanel" hidden={value !== index} {...other}>
-         {value === index && <Box p={3}>{children}</Box>}
-       </div>
-     );
-   }
  
    return (
      <>

@@ -232,7 +232,8 @@ export function installDependencies(options) {
       'jsonwebtoken',
       'swagger-ui-express',
       'tsoa',
-      'ethereumjs-util'
+      'ethereumjs-util',
+      'eth-checksum'
     ]);
   }
 

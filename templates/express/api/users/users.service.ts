@@ -4,23 +4,25 @@ import { bufferToHex, ecrecover, fromRpcSig, hashPersonalMessage, publicToAddres
 import { connect } from '../../util/mongo';
 import { User } from './user';
 import { CustomError } from '../../util/errors';
-import { createJWT, validateJWT } from '../../util/auth';
+import { createJWT } from '../../util/auth';
+import checksum from 'eth-checksum';
 
 /**
  * Users Service
  */
 export default class UsersService {
   public async signup(req: ExRequest, address: string): Promise<User> {
+    const checksumAddress = checksum.encode(address);
     const database = await connect('test');
     const collection = await database.collection<User>('users');
 
-    let user = await collection.findOne({ address });
+    let user = await collection.findOne({ address: checksumAddress });
     const nonce = Math.floor(Math.random() * 1000000);
 
     if (!user) {
       await collection.insertOne({
         joined: new Date().toISOString(),
-        address,
+        address: checksumAddress,
         settings: {
           theme: 'light',
           language: 'english'
@@ -29,17 +31,18 @@ export default class UsersService {
         nonce
       });
 
-      user = await collection.findOne({ address });
+      user = await collection.findOne({ address: checksumAddress });
     }
 
     return user;
   }
 
   public async login(req: ExRequest, address: string, signature: string): Promise<User> {
+    const checksumAddress = checksum.encode(address);
     const database = await connect('test');
     const userCollection = await database.collection<User>('users');
-    const user = await userCollection.findOne({ address });
-
+    const user = await userCollection.findOne({ address: checksumAddress });
+    
     if (user) {
       try {
         const msg = `Nonce: ${user.nonce}`;
@@ -51,15 +54,15 @@ export default class UsersService {
         const msgHash = hashPersonalMessage(msgBuffer);
         const signatureParams = fromRpcSig(signature);
         const publicKey = ecrecover(msgHash, signatureParams.v, signatureParams.r, signatureParams.s);
-        const addresBuffer = publicToAddress(publicKey);
-        const ethAddress = bufferToHex(addresBuffer);
+        const addressBuffer = publicToAddress(publicKey);
+        const ethAddress = bufferToHex(addressBuffer);
 
         // Check if address matches
         if (ethAddress.toLowerCase() === user.address.toLowerCase()) {
           // Change user nonce
           const newNonce = Math.floor(Math.random() * 1000000);
           userCollection.updateOne(
-            { address: ethAddress },
+            { address: checksumAddress },
             {
               $set: {
                 nonce: newNonce
