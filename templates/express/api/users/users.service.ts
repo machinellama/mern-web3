@@ -8,9 +8,23 @@ import { createJWT } from '../../util/auth';
 import checksum from 'eth-checksum';
 
 /**
- * Users Service
+ * Users Service with MetaMask/Etherum authentication
  */
 export default class UsersService {
+  /**
+   * Signup function will create a new user in the db with the primary key being
+   * the Ethereum address passed in (if a user with that address doesn't already exist).
+   * Will also create a new nonce (random number) to be saved with the user, which will be used
+   * as the wallet signature message on the UI.
+   * It's important to create the User in the db with a random nonce *before* they sign a message
+   * in their wallet, so we can verify the signature is valid in the login function below.
+   *
+   * Note: will convert the address to its checksum version before creating a new user.
+   * https://coincodex.com/article/2078/ethereum-address-checksum-explained/
+   * @param req
+   * @param address Ethereum address from frontend
+   * @returns The newly created User
+   */
   public async signup(req: ExRequest, address: string): Promise<User> {
     const checksumAddress = checksum.encode(address);
     const database = await connect('test');
@@ -37,6 +51,21 @@ export default class UsersService {
     return user;
   }
 
+  /**
+   * Login will get the User (created in the signup function above) from the db associated with an address,
+   * create a message with the random nonce saved with that User object, verify the given signature to see
+   * if the signature's message contains the correct nonce, and verify the signature's
+   * Ethereum address matches the user's saved address.
+   * If the signature and address are valid, a new JWT token is created and passed to the frontend.
+   *
+   * More about JTWs here: https://jwt.io/introduction/.
+   * Important: don't forget to change the secret in the config file (and gitignore it!). That secret
+   * will be used to create and validate JWT token for future requests.
+   * @param req
+   * @param address
+   * @param signature
+   * @returns User object with a newly created JWT token
+   */
   public async login(req: ExRequest, address: string, signature: string): Promise<User> {
     const checksumAddress = checksum.encode(address);
     const database = await connect('test');

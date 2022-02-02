@@ -3,8 +3,7 @@ import { connect } from '../util/mongo';
 
 /**
  * Generic Service defining get and create functions for a given generic type
- * Note: any new service must be added to dataNames in util/file
- * Note: any type used must have id
+ * Note: any type used must have 'id' property
  */
 export default class GenericService<T> {
   /*
