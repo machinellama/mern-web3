@@ -14,12 +14,11 @@ const plugins = [
   new webpack.ProvidePlugin({
     process: 'process/browser',
     Buffer: ['buffer', 'Buffer']
+  }),
+  new MiniCssExtractPlugin({
+    filename: 'styles.css'
   })
 ];
-if (!devMode) {
-  // enable in production only
-  plugins.push(new MiniCssExtractPlugin());
-}
 
 module.exports = {
   entry: '{{webpack.entryFile}}',
@@ -70,9 +69,10 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader',
+          'postcss-loader'
         ],
       },
       {

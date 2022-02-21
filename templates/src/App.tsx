@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { MetamaskStateProvider } from 'use-metamask';
 import { SnackbarProvider } from 'notistack';
 import cn from 'classnames';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { getStorage, setStorage } from './util/storage';
 import Characters from './components/characters/Characters';
@@ -35,28 +36,41 @@ function App() {
     translations: getTranslations(context.settings.language)
   };
 
+  const theme = createTheme({
+    typography: {
+      fontFamily: [
+        'Inter'
+      ].join(',')
+    },
+    palette: {
+      mode: context.settings.theme === 'dark' ? 'dark' : 'light'
+    }
+  });
+
   return (
     <MetamaskStateProvider>
       <UserContext.Provider value={contextValue}>
         <BrowserRouter>
-          <SnackbarProvider maxSnack={3}>
-            <div className={cn('app', context.settings.theme)}>
-              <div className="main">
-                <Navigation logout={logout} page={page} setContext={setContext} setPage={setPage} />
+          <ThemeProvider theme={theme}>
+            <SnackbarProvider maxSnack={3}>
+              <div className={cn('app', context.settings.theme)}>
+                <div className="main flex dark:bg-gray-700">
+                  <Navigation logout={logout} page={page} setContext={setContext} setPage={setPage} />
 
-                <Switch>
-                  <Route exact path="/" component={(params) => <Characters {...params} logout={logout} />} />
-                  <Route
-                    exact
-                    path={['/characters', '/characters/:id']}
-                    component={(params) => {
-                      return <Characters id={params?.match?.params?.id} {...params} logout={logout} />;
-                    }}
-                  />
-                </Switch>
+                  <Switch>
+                    <Route exact path="/" component={(params) => <Characters {...params} logout={logout} />} />
+                    <Route
+                      exact
+                      path={['/characters', '/characters/:id']}
+                      component={(params) => {
+                        return <Characters id={params?.match?.params?.id} {...params} logout={logout} />;
+                      }}
+                    />
+                  </Switch>
+                </div>
               </div>
-            </div>
-          </SnackbarProvider>
+            </SnackbarProvider>
+          </ThemeProvider>
         </BrowserRouter>
       </UserContext.Provider>
     </MetamaskStateProvider>

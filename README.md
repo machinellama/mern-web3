@@ -28,7 +28,10 @@ After answering questions:
   - Functional components
   - React Routing
   - Framework for translations and themes
-- SCSS
+- Material UI
+- TailwindCSS
+  - With light and dark themes
+  - Compilied with PostCSS
 - MongoDB
 - Express
   - Example GET and POST endpoints

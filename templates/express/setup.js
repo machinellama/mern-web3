@@ -35,6 +35,8 @@ async function start() {
   list.forEach(async p => {
     await collection.updateOne({ _id: p.id }, { $set: p }, { upsert: true });
   });
+
+  process.exit(0);
 }
 
 start();

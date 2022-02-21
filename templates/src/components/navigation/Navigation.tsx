@@ -28,7 +28,6 @@
  
  import config from '../../../config';
  import UserContext from '../../util/UserContext';
- import './Navigation.scss';
  
  interface INavigation {
    logout: Function;
@@ -109,28 +108,28 @@
    }
  
    const drawer = (
-     <div className="navigation__drawer">
-       <div className="login-row">
+     <div className="w-64 h-screen dark:bg-gray-900 dark:text-gray-100">
+       <div className="m-2">
          {address ? (
-           <div className="logout-row">
-             <Button variant="outlined" disableElevation onClick={() => props.logout()}>
+           <div>
+             <Button variant="outlined" sx={{ marginBottom: 1 }} className="dark:text-gray-100" disableElevation onClick={() => props.logout()}>
                {translations.auth?.logout}
              </Button>
-             <p>{address}</p>
+             <p className="break-words w-56 mr-2">{address}</p>
            </div>
          ) : (
-           <Button variant="outlined" disableElevation onClick={() => login()}>
+           <Button variant="outlined" className="dark:text-gray-100" disableElevation onClick={() => login()}>
              {translations.auth?.login}
            </Button>
          )}
        </div>
  
-       <List className="navigation__main-items">
+       <List>
          <Link to="/characters" onClick={() => props.setPage('/characters')}>
            <ListItem button key="dashboard-icon" selected={props.page.includes('/characters') || props.page === '/'}>
              <ListItemIcon>
                <Tooltip title={translations?.nav?.characters} placement="right">
-                 <People aria-label={translations?.nav?.characters} />
+                 <People className="dark:text-gray-100" aria-label={translations?.nav?.characters} />
                </Tooltip>
              </ListItemIcon>
              <ListItemText primary={translations?.nav?.characters} />
@@ -140,14 +139,13 @@
  
        <Divider />
  
-       <List className="navigation__secondary-items">
+       <List>
          <ListItem button key="navigation__theme" aria-label={translations?.nav?.theme}>
            <ListItemIcon>
-             <Palette />
+             <Palette className="dark:text-gray-100" />
            </ListItemIcon>
            <Select
              aria-label={translations?.nav?.theme}
-             className="navigation__theme-select"
              onChange={(e) =>
                props.setContext({
                  ...userContext,
@@ -158,6 +156,8 @@
                })
              }
              value={theme}
+             sx={{ height: 42 }}
+             className="dark:text-gray-100"
            >
              <MenuItem value={'light'}>{translations?.nav?.light}</MenuItem>
              <MenuItem value={'dark'}>{translations?.nav?.dark}</MenuItem>
@@ -166,11 +166,10 @@
  
          <ListItem button key="navigation__language" aria-label={translations?.nav?.language}>
            <ListItemIcon>
-             <Translate />
+             <Translate className="dark:text-gray-100" />
            </ListItemIcon>
            <Select
              aria-label={translations?.nav?.language}
-             className="navigation__language-select"
              onChange={(e) =>
                props.setContext({
                  ...userContext,
@@ -181,6 +180,8 @@
                })
              }
              value={language}
+             sx={{ height: 42 }}
+             className="dark:text-gray-100"
            >
              <MenuItem value={'english'}>{translations?.languages?.english}</MenuItem>
              <MenuItem value={'japanese'}>{translations?.languages?.japanese}</MenuItem>
@@ -191,32 +192,29 @@
    );
  
    return (
-     <>
-       <div className={cn('navigation', theme)}>
-         <IconButton color="inherit" edge="start" onClick={handleDrawerToggle} className="navigation__mobile-icon">
-           <Menu />
-         </IconButton>
-         <Hidden mdUp implementation="js">
-           <Drawer
-             anchor="left"
-             className="navigation__drawer-container"
-             onClose={handleDrawerToggle}
-             open={mobileOpen}
-             variant="temporary"
-             ModalProps={{
-               keepMounted: true
-             }}
-           >
-             {drawer}
-           </Drawer>
-         </Hidden>
-         <Hidden smDown implementation="js">
-           <Drawer variant="permanent" open className="navigation__drawer-container">
-             {drawer}
-           </Drawer>
-         </Hidden>
-       </div>
-     </>
+     <div className="md:w-64 sm:w-4 dark:bg-gray-700">
+       <IconButton color="inherit" edge="start" onClick={handleDrawerToggle}>
+         <Menu />
+       </IconButton>
+       <Hidden lgUp implementation="js">
+         <Drawer
+           anchor="left"
+           onClose={handleDrawerToggle}
+           open={mobileOpen}
+           variant="temporary"
+           ModalProps={{
+             keepMounted: true
+           }}
+         >
+           {drawer}
+         </Drawer>
+       </Hidden>
+       <Hidden mdDown implementation="js">
+         <Drawer variant="permanent" open>
+           {drawer}
+         </Drawer>
+       </Hidden>
+     </div>
    );
  }
  

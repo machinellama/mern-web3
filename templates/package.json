@@ -12,8 +12,10 @@
     "start": "node ./dist/express/app.js",
     "start:web": "http-server ./dist --proxy http://localhost:{{webpack.port}}? -p {{webpack.port}}",
     "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
-    "dev:web": "webpack serve --mode development",
-    "test": "jest"
+    "dev:web": "webpack-dev-server --mode development",
+    "dev:all": "concurrently --names \"Express,Web\" -c \"bgBlue.bold,bgMagenta.bold\" \"yarn run dev\" \"yarn run dev:web \"",
+    "test": "jest",
+    "setup": "node ./express/setup.js"
   },
   "repository": {
     "type": "{{package.repositoryType}}",

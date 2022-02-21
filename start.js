@@ -186,7 +186,11 @@ export function installDependencies(options) {
       'os-browserify',
       'stream-browserify',
       'stream-http',
-      'url'
+      'url',
+      'autoprefixer',
+      'postcss',
+      'postcss-loader',
+      'tailwindcss'
     ], true);
 
     // non-dev deps
