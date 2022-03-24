@@ -4,7 +4,7 @@ Quickly create a simple MERN stack application with key features pre-built and r
 Includes web3 login/authentication using MetaMask and Ethereum!
 
 To run: `yarn install` and then `yarn start` to start the interactive CLI
-- Node and Yarn are required prerequisites
+- Node v14.15.4+ and the latest version of Yarn are required prerequisites
 - If using Mongo, make sure to download MongoDB, install, add bin folder to path, and run with `mongod` in a separate terminal
 
 ## CLI
