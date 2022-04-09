@@ -111,7 +111,7 @@ export function createFiles(options) {
 }
 
 function add(names, dev) {
-  const EXEC_TIMEOUT = 60 * 1000; // 60 seconds
+  const EXEC_TIMEOUT = 120 * 1000; // 60 seconds
 
   names.forEach(name => {
     console.log(chalk.cyan(`Installing ${name}`));
