@@ -1,7 +1,7 @@
 # machinellama/MERN-Web3
 
 Quickly create a simple MERN stack application with key features pre-built and ready to run.
-Includes web3 login/authentication using MetaMask and Ethereum!
+Includes web3 login, authentication, and payment transfers using MetaMask and Ethereum!
 
 To run: `yarn install` and then `yarn start` to start the interactive CLI
 - Node v14.15.4+ and the latest version of Yarn are required prerequisites
@@ -15,8 +15,9 @@ Note: only a few questions are asked in the CLI; full configuration is in `confi
 After answering questions:
 - A script will copy Webpack, Babel, Express, and React files to a new directory
 - Necessary dependencies will be installed via Yarn
-- The newly created React App can be run with `yarn run dev:web` (on port 5070 by default)
-- An Express server can be run by running `yarn run dev` (on port 4070 by default)
+- The newly created React App can be run with `yarn run dev:all`
+- You can run just the web server with `yarn run dev:web` (on port 5070 by default)
+- The Express server can be run with `yarn run dev` (on port 4070 by default)
 - If you opted to only include frontend or backend components, the run command will just be `yarn run dev` for the one included
 
 ## Demo of app created
@@ -38,6 +39,8 @@ After answering questions:
 - Authentication
   - Uses web3 and MetaMask wallet address for login (no username/password required)
   - You can find the backend web3 auth logic [here](https://github.com/machinellama/mern-web3/blob/main/templates/express/api/users/users.service.ts) and the frontend MetaMask logic [here](https://github.com/machinellama/mern-web3/blob/main/templates/src/components/navigation/Navigation.tsx#L65)
+- ETH Payment Transfers
+- You can transfer ETH from your wallet to another wallet for payments. This can be found [here](https://github.com/machinellama/mern-web3/blob/main/templates/src/components/payment/Payment.tsx)
 - TSOA
   - TypeScript based MVC framework for REST endpoints
 - Webpack

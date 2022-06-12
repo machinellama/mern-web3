@@ -32,9 +32,10 @@ async function start() {
   const database = await client.db('test');
   const collection = await database.collection('characters');
   
-  list.forEach(async p => {
+  for (i = 0; i < list.length; i++) {
+    const p = list[i];
     await collection.updateOne({ _id: p.id }, { $set: p }, { upsert: true });
-  });
+  }
 
   process.exit(0);
 }

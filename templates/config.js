@@ -12,5 +12,6 @@ module.exports = {
   },
   authentication: {
     secret: 'abc123'
-  }
+  },
+  network: 'kovan'
 }

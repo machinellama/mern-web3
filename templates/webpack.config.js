@@ -2,30 +2,46 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const devMode = process.env.NODE_ENV !== 'production';
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const ReactRefreshTypeScript = require('react-refresh-typescript');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const config = require('./config');
 
-const plugins = [
-  new webpack.SourceMapDevToolPlugin({}),
-  new HtmlWebpackPlugin({
-    filename: '{{webpack.htmlFilename}}',
-    template: '{{webpack.htmlTemplate}}'
-  }),
-  new webpack.ProvidePlugin({
-    process: 'process/browser',
-    Buffer: ['buffer', 'Buffer']
-  }),
-  new MiniCssExtractPlugin({
-    filename: 'styles.css'
-  })
-];
+const devMode = process.env.NODE_ENV !== 'production';
+
+function getPlugins() {
+  const plugins = [
+    new webpack.SourceMapDevToolPlugin({}),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './public/index.html'
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+      Buffer: ['buffer', 'Buffer']
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'styles.css'
+    }),
+    new ForkTsCheckerWebpackPlugin()
+  ];
+
+  if (devMode) {
+    plugins.push(new ReactRefreshWebpackPlugin());
+  }
+
+  return plugins;
+}
 
 module.exports = {
-  entry: '{{webpack.entryFile}}',
+  entry: './src/index.tsx',
   mode: devMode ? 'development' : 'production',
+  devServer: {
+    hot: true
+  },
   output: {
-    path: path.resolve(__dirname, '{{webpack.outputPath}}'),
-    filename: '{{webpack.outputFile}}',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
     publicPath: '/'
   },
   resolve: {
@@ -48,32 +64,32 @@ module.exports = {
     client: {
       overlay: false
     },
-    static: './{{webpack.outputPath}}',
-    open: {{webpack.openOnStart}},
+    static: './dist',
+    open: true,
     port: config.web.port,
     historyApiFallback: true
   },
-  plugins,
+  plugins: getPlugins(),
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        use: 'babel-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.(ts|tsx)$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
+        test: /\.[jt]sx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: require.resolve('ts-loader'),
+            options: {
+              getCustomTransformers: () => ({
+                before: [devMode && ReactRefreshTypeScript()].filter(Boolean)
+              }),
+              transpileOnly: devMode
+            }
+          }
+        ]
       },
       {
         test: /\.(sa|sc|c)ss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader',
-          'postcss-loader'
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader', 'postcss-loader']
       },
       {
         test: /\.(png|jp(e*)g|svg|gif|pdf)$/,
@@ -89,4 +105,4 @@ module.exports = {
       }
     ]
   }
-}
+};

@@ -7,7 +7,7 @@ export default {
     theme: 'Theme'
   },
   auth: {
-    connectMainnet: 'Please connect to Ethereum Mainnet',
+    connectNetwork: 'Please connect to network',
     duplicateSignup: 'User already exists, unable to signup again',
     invalidLogin: 'Invalid login',
     login: 'Login with MetaMask',
@@ -22,7 +22,8 @@ export default {
   },
   languages: {
     english: 'English',
-    japanese: '日本語'
+    japanese: '日本語',
+    spanish: 'Español'
   },
   characters: {
     backToAll: 'Back to All Characters',
@@ -31,5 +32,15 @@ export default {
     description: 'Description',
     location: 'Location',
     name: 'Name'
+  },
+  payment: {
+    addressAndAmountRequired: 'Send address and amount required',
+    currentBalance: 'Current Balance',
+    makePayment: 'Make ETH Payment',
+    network: 'Network',
+    paymentSent: 'Payment sent',
+    send: 'Send',
+    sendAmount: 'Send Amount',
+    sendToAddress: 'Send to Address'
   }
 };

@@ -3,17 +3,15 @@
     "@babel/preset-react",
     "@babel/preset-typescript",
     [
-      "@babel/preset-env", {
+      "@babel/preset-env",
+      {
         "useBuiltIns": "usage",
         "corejs": "3",
         "targets": {
-          "browsers": [
-            "last 5 versions",
-            "ie >= 8"
-          ]
+          "browsers": ["last 5 versions", "ie >= 8"]
         }
       }
     ]
   ],
-  "plugins": ["@babel/plugin-proposal-optional-chaining"]
+  "plugins": ["@babel/plugin-proposal-optional-chaining", "react-refresh/babel"]
 }

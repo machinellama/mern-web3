@@ -7,7 +7,7 @@ export default {
     theme: 'テーマ'
   },
   auth: {
-    connectMainnet: 'コネクトマイネット:「イーゼリアム・メインネットに接続してください」、',
+    connectNetwork: 'ネットワークに接続してください',
     duplicateSignup: 'ユーザーは既に存在し、再度サインアップできません',
     invalidLogin: '無効なログイン',
     login: 'ログイン',
@@ -22,7 +22,8 @@ export default {
   },
   languages: {
     english: 'English',
-    japanese: '日本語'
+    japanese: '日本語',
+    spanish: 'Español'
   },
   characters: {
     backToAll: 'すべての文字に戻る',
@@ -31,5 +32,15 @@ export default {
     description: '説明',
     location: '場所',
     name: '名前'
+  },
+  payment: {
+    addressAndAmountRequired: '送信先アドレスと金額が必要です',
+    currentBalance: '現在の残高',
+    makePayment: 'ETH支払いを行う',
+    network: 'ネットワーク',
+    paymentSent: '支払いが送信されました',
+    send: '送信',
+    sendAmount: '送信金額',
+    sendToAddress: '送信先アドレス'
   }
 };

@@ -190,7 +190,9 @@ export function installDependencies(options) {
       'autoprefixer',
       'postcss',
       'postcss-loader',
-      'tailwindcss'
+      'tailwindcss',
+      '@pmmmwh/react-refresh-webpack-plugin',
+      'fork-ts-checker-webpack-plugin'
     ], true);
 
     // non-dev deps
@@ -209,7 +211,10 @@ export function installDependencies(options) {
       'superagent',
       'regenerator-runtime',
       'use-metamask',
-      'web3'
+      'web3',
+      'ethers',
+      'react-refresh',
+      'react-refresh-typescript'
     ]);
   }
 

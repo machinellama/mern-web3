@@ -7,6 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { getStorage, setStorage } from './util/storage';
 import Characters from './components/characters/Characters';
+import Payment from './components/payment/Payment';
 import getTranslations from './translations/getTranslations';
 import Navigation from './components/navigation/Navigation';
 import UserContext, { getDefaultUserContext, IContext } from './util/UserContext';
@@ -38,9 +39,7 @@ function App() {
 
   const theme = createTheme({
     typography: {
-      fontFamily: [
-        'Inter'
-      ].join(',')
+      fontFamily: ['Inter'].join(',')
     },
     palette: {
       mode: context.settings.theme === 'dark' ? 'dark' : 'light'
@@ -64,6 +63,16 @@ function App() {
                       path={['/characters', '/characters/:id']}
                       component={(params) => {
                         return <Characters id={params?.match?.params?.id} {...params} logout={logout} />;
+                      }}
+                    />
+                  </Switch>
+
+                  <Switch>
+                    <Route
+                      exact
+                      path={['/payment']}
+                      component={(params) => {
+                        return <Payment {...params} logout={logout} />;
                       }}
                     />
                   </Switch>
