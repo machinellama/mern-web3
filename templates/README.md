@@ -42,7 +42,7 @@ test
 ## Payment Transfers
 - Eth transfers can be made after logging in with a Metamask wallet by using the `ethers` library
 - By default, the `kovan` network will be used. If you want to use a different network (like `mainnet` for the main Ethereum network), change the network value in `config.js`
-- You can get free ETH on the [kovan network](https://github.com/kovan-testnet/faucet) for testing and development purposes
+- You can get free ETH on the different test networks (like the [kovan network](https://github.com/kovan-testnet/faucet)) for testing and development purposes
 
 ### Signup
 The `/api/users/signup` endpoint creates a new user in the db with given ethereum address
