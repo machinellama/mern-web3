@@ -40,7 +40,7 @@ After answering questions:
   - Uses web3 and MetaMask wallet address for login (no username/password required)
   - You can find the backend web3 auth logic [here](https://github.com/machinellama/mern-web3/blob/main/templates/express/api/users/users.service.ts) and the frontend MetaMask logic [here](https://github.com/machinellama/mern-web3/blob/main/templates/src/components/navigation/Navigation.tsx#L65)
 - ETH Payment Transfers
-- You can transfer ETH from your wallet to another wallet for payments. This can be found [here](https://github.com/machinellama/mern-web3/blob/main/templates/src/components/payment/Payment.tsx)
+  - You can transfer ETH from your wallet to another wallet for payments. This can be found [here](https://github.com/machinellama/mern-web3/blob/main/templates/src/components/payment/Payment.tsx)
 - TSOA
   - TypeScript based MVC framework for REST endpoints
 - Webpack
