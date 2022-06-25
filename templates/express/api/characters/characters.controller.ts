@@ -9,18 +9,17 @@ import CharactersService from './characters.service';
  */
 @Route('api/characters')
 export class CharactersController {
-
   @Get('')
-  public async getController(
+  public async getCharacters(
     @Request() request,
-    @Query() id?: number,
+    @Query() id?: number | string,
     @Query() limit?: number,
     @Query() offset?: number
   ): Promise<Character | Character[]> {
-    const user = validateJWT(request);
+    validateJWT(request);
 
     const service = new CharactersService();
 
-    return await service.genericGet('characters', {id, limit, offset});
+    return await service.genericGet('characters', { id, limit, offset });
   }
 }

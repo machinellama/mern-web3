@@ -4,9 +4,12 @@ import { useSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router-dom';
 import { Button, TextField } from '@mui/material';
 import { ethers } from 'ethers';
+import superagent from 'superagent';
 
 import config from '../../../config';
 import UserContext from '../../util/UserContext';
+import { Transaction } from './Transaction';
+import TransactionTable from './TransactionTable';
 
 export interface IPayment {
   history: RouteComponentProps;
@@ -18,16 +21,27 @@ export default function Payment(props: IPayment) {
   const [chain, setChain] = useState<string>();
   const [sendAddress, setSendAddress] = useState<string | undefined>();
   const [amount, setAmount] = useState<number | undefined>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [error, setError] = useState<string>();
 
   const { enqueueSnackbar } = useSnackbar();
-  const { getChain, metaState } = useMetamask();
+  const { getChain, metaState, connect } = useMetamask();
 
   const userContext = useContext(UserContext);
-  const { address, translations } = userContext;
+  const { address, translations, token, settings } = userContext;
+  const { language, theme } = settings;
+  const expressURL = config.express.url;
 
   if (!address) {
     props.history.push('/');
   }
+
+  useEffect(() => {
+    if (!loading) {
+      getTransactions();
+    }
+  }, []);
 
   useEffect(() => {
     const { account, isConnected, web3 } = metaState;
@@ -68,6 +82,28 @@ export default function Payment(props: IPayment) {
     }
   }
 
+  async function getTransactions() {
+    return superagent
+        .get(`${expressURL}/api/transactions`)
+        .set('Authorization', `Bearer ${token}`)
+        .then((response) => {
+          setTransactions(response.body || []);
+        })
+        .catch((e) => {
+          // unauthorized
+          if (e.status === 401) {
+            setError(translations.auth?.unauthorizedPleaseLogin);
+            enqueueSnackbar(translations.auth?.unauthorizedPleaseLogin, { variant: 'warning' });
+            if (token) {
+              props.logout();
+            }
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+  }
+
   async function makePayment() {
     if (!sendAddress || !amount) {
       enqueueSnackbar(`${translations.payment.addressAndAmountRequired}`, { variant: 'error' });
@@ -81,10 +117,36 @@ export default function Payment(props: IPayment) {
           value: ethers.utils.parseEther(amount?.toString())
         });
 
-        console.log({ amount, sendAddress });
-        console.log('tx', tx);
-
         enqueueSnackbar(`${translations.payment.paymentSent}`, { variant: 'success' });
+
+        const newTransaction = {
+          amount: ethers.utils.formatEther(tx.value),
+          created: new Date().toISOString(),
+          from: tx.from,
+          gasFee: ethers.utils.formatEther(tx.gasPrice),
+          network: chain,
+          raw: tx,
+          to: tx.to,
+          transactionId: tx.hash
+        };
+
+        superagent
+          .post(`${expressURL}/api/transactions`)
+          .set('Authorization', `Bearer ${token}`)
+          .send(newTransaction)
+          .then((response) => {
+            getTransactions();
+          })
+          .catch((e) => {
+            // unauthorized
+            if (e.status === 401) {
+              setError(translations.auth?.unauthorizedPleaseLogin);
+              enqueueSnackbar(translations.auth?.unauthorizedPleaseLogin, { variant: 'warning' });
+              if (token) {
+                props.logout();
+              }
+            }
+          })
       } catch (error) {
         enqueueSnackbar(error.message, { variant: 'error' });
       }
@@ -127,6 +189,10 @@ export default function Payment(props: IPayment) {
               {translations.payment?.send || ''}
             </Button>
           </div>
+        </div>
+
+        <div>
+          <TransactionTable data={transactions} />
         </div>
       </div>
     </div>

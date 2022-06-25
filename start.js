@@ -214,7 +214,8 @@ export function installDependencies(options) {
       'web3',
       'ethers',
       'react-refresh',
-      'react-refresh-typescript'
+      'react-refresh-typescript',
+      'uuid'
     ]);
   }
 

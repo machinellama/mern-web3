@@ -3,24 +3,21 @@ const config = require('../config');
 
 const list = [
   {
-    id: 1,
     name: 'Marceline Abadeer',
     location: 'Cave, Ooo',
     description: 'I eat the color red sometimes',
-    created: new Date()
+    created: new Date().toISOString()
   },
   {
-    id: 2,
     name: 'Princess Bubblegum',
     location: 'Candy Kingdom, Ooo',
     description: 'Good, I\'ve always loved your songs',
-    created: new Date()
+    created: new Date().toISOString()
   },
   {
-    id: 3,
     name: 'Flame Princess',
     location: 'Flame Kingdom, Ooo',
-    created: new Date()
+    created: new Date().toISOString()
   }
 ];
 
@@ -29,13 +26,10 @@ async function start() {
   const client = new MongoClient(mongoURL, { useUnifiedTopology: true });
   await client.connect();
 
-  const database = await client.db('test');
+  const database = await client.db(config.mongo.databaseName);
   const collection = await database.collection('characters');
   
-  for (i = 0; i < list.length; i++) {
-    const p = list[i];
-    await collection.updateOne({ _id: p.id }, { $set: p }, { upsert: true });
-  }
+  await collection.insertMany(list);
 
   process.exit(0);
 }

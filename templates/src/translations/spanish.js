@@ -34,13 +34,26 @@ export default {
     name: 'Nombre'
   },
   payment: {
-    addressAndAmountRequired: 'Se requiere dirección y cantidad',
+    addressAndAmountRequired: 'Se requiere una dirección de destino y una cantidad',
+    amount: 'Cantidad (ETH)',
+    created: 'Creado',
     currentBalance: 'Saldo actual',
-    makePayment: 'Hacer pago',
+    makePayment: 'Hacer un pago',
     network: 'Red',
     paymentSent: 'Pago enviado',
     send: 'Enviar',
-    sendAmount: 'Enviar cantidad',
-    sendToAddress: 'Enviar a dirección'
+    sendAmount: 'Cantidad a enviar',
+    sendToAddress: 'Enviar a dirección',
+    toAddress: 'Dirección de destino',
+    transactionId: 'ID de transacción'
+  },
+  paymentModal: {
+    amount: 'Cantidad',
+    created: 'Creado',
+    from: 'De',
+    gasFee: 'Tarifa de gas',
+    network: 'Red',
+    to: 'A',
+    total: 'Total'
   }
 };

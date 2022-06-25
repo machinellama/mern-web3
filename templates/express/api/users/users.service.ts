@@ -1,11 +1,12 @@
 import { Request as ExRequest } from 'express';
 import { bufferToHex, ecrecover, fromRpcSig, hashPersonalMessage, publicToAddress, toBuffer } from 'ethereumjs-util';
+import checksum from 'eth-checksum';
 
 import { connect } from '../../util/mongo';
 import { User } from './user';
 import { CustomError } from '../../util/errors';
 import { createJWT } from '../../util/auth';
-import checksum from 'eth-checksum';
+import config from '../../../config';
 
 /**
  * Users Service with MetaMask/Etherum authentication
@@ -27,7 +28,7 @@ export default class UsersService {
    */
   public async signup(req: ExRequest, address: string): Promise<User> {
     const checksumAddress = checksum.encode(address);
-    const database = await connect('test');
+    const database = await connect(config.mongo.databaseName);
     const collection = await database.collection<User>('users');
 
     let user = await collection.findOne({ address: checksumAddress });
@@ -68,10 +69,10 @@ export default class UsersService {
    */
   public async login(req: ExRequest, address: string, signature: string): Promise<User> {
     const checksumAddress = checksum.encode(address);
-    const database = await connect('test');
+    const database = await connect(config.mongo.databaseName);
     const userCollection = await database.collection<User>('users');
     const user = await userCollection.findOne({ address: checksumAddress });
-    
+
     if (user) {
       try {
         const msg = `Nonce: ${user.nonce}`;

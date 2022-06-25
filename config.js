@@ -37,6 +37,7 @@ export default {
   },
   mongo: {
     port: '27017',
-    url: 'mongodb://localhost'
+    url: 'mongodb://localhost',
+    databaseName: 'test'
   }
 }

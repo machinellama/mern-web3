@@ -1,4 +1,4 @@
-import { Filter } from 'mongodb';
+import { Filter, ObjectId } from 'mongodb';
 import { connect } from '../util/mongo';
 
 /**
@@ -15,9 +15,10 @@ export default class GenericService<T> {
   public async genericGet(
     collectionName: string,
     params?: {
-      id?: number,
+      id?: number | string,
       limit?: number,
-      offset?: number
+      offset?: number,
+      userId?: number | string
     },
     query?: object
   ): Promise<T | T[]> {
@@ -26,7 +27,7 @@ export default class GenericService<T> {
 
     if (params.id != null) {
       const collectionQuery: Filter<any> = {
-        id: params.id
+        _id: new ObjectId(params.id)
       };
 
       return collection.findOne<T>(collectionQuery);
@@ -43,7 +44,17 @@ export default class GenericService<T> {
         collectionQuery.$skip = params.offset;
       }
 
-      return collection.find<T>(collectionQuery).toArray();
+      // only return items that belong to a user
+      if (params.userId != null) {
+        collectionQuery.userId = params.userId;
+      }
+
+      // copy _id to id for all items
+      const items = await collection.find<T>(collectionQuery).toArray();
+      return items.map(item => {
+        item['id'] = item['_id'];
+        return item;
+      });
     }
   }
 }

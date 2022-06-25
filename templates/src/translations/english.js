@@ -35,12 +35,25 @@ export default {
   },
   payment: {
     addressAndAmountRequired: 'Send address and amount required',
+    amount: 'Amount (ETH)',
+    created: 'Created',
     currentBalance: 'Current Balance',
     makePayment: 'Make ETH Payment',
     network: 'Network',
     paymentSent: 'Payment sent',
     send: 'Send',
     sendAmount: 'Send Amount',
-    sendToAddress: 'Send to Address'
+    sendToAddress: 'Send to Address',
+    toAddress: 'To Address',
+    transactionId: 'Transaction ID'
+  },
+  paymentModal: {
+    amount: 'Amount',
+    created: 'Created',
+    from: 'From',
+    gasFee: 'Gas Fee',
+    network: 'Network',
+    to: 'To',
+    total: 'Total'
   }
 };
