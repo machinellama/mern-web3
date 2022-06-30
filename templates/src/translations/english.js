@@ -1,6 +1,7 @@
 export default {
   nav: {
     characters: 'Characters',
+    transactions: 'Transactions',
     dark: 'Dark',
     language: 'Language',
     light: 'Light',

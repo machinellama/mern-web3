@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { getStorage, setStorage } from './util/storage';
 import Characters from './components/characters/Characters';
-import Payment from './components/payment/Payment';
+import Transactions from './components/transactions/Transactions';
 import getTranslations from './translations/getTranslations';
 import Navigation from './components/navigation/Navigation';
 import UserContext, { getDefaultUserContext, IContext } from './util/UserContext';
@@ -57,22 +57,19 @@ function App() {
                   <Navigation logout={logout} page={page} setContext={setContext} setPage={setPage} />
 
                   <Switch>
-                    <Route exact path="/" component={(params) => <Characters {...params} logout={logout} />} />
+                    <Route exact path="/" component={(params) => <Characters {...params} logout={logout} setPage={setPage} />} />
                     <Route
                       exact
                       path={['/characters', '/characters/:id']}
                       component={(params) => {
-                        return <Characters id={params?.match?.params?.id} {...params} logout={logout} />;
+                        return <Characters id={params?.match?.params?.id} {...params} logout={logout} setPage={setPage} />;
                       }}
                     />
-                  </Switch>
-
-                  <Switch>
                     <Route
                       exact
-                      path={['/payment']}
+                      path={['/transactions']}
                       component={(params) => {
-                        return <Payment {...params} logout={logout} />;
+                        return <Transactions {...params} logout={logout} />;
                       }}
                     />
                   </Switch>

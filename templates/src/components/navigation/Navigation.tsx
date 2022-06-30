@@ -7,7 +7,7 @@
  import { Link } from 'react-router-dom';
  import { useMetamask } from 'use-metamask';
  import { useSnackbar } from 'notistack';
- import { Menu, Palette, People, Translate } from '@mui/icons-material';
+ import { Menu, Palette, People, Translate, FormatListBulleted } from '@mui/icons-material';
  import {
    Button,
    Divider,
@@ -150,6 +150,17 @@
                </Tooltip>
              </ListItemIcon>
              <ListItemText primary={translations?.nav?.characters} />
+           </ListItem>
+         </Link>
+
+         <Link to="/transactions" onClick={() => props.setPage('/transactions')}>
+           <ListItem button key="dashboard-icon" selected={props.page.includes('/transactions')}>
+             <ListItemIcon>
+               <Tooltip title={translations?.nav?.transactions} placement="right">
+                 <FormatListBulleted className="dark:text-gray-100" aria-label={translations?.nav?.transactions} />
+               </Tooltip>
+             </ListItemIcon>
+             <ListItemText primary={translations?.nav?.transactions} />
            </ListItem>
          </Link>
        </List>

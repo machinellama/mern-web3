@@ -11,12 +11,12 @@ import UserContext from '../../util/UserContext';
 import { Transaction } from './Transaction';
 import TransactionTable from './TransactionTable';
 
-export interface IPayment {
+export interface ITransactions {
   history: RouteComponentProps;
   logout: () => void;
 }
 
-export default function Payment(props: IPayment) {
+export default function Transactions(props: ITransactions) {
   const [balance, setBalance] = useState<number>();
   const [chain, setChain] = useState<string>();
   const [sendAddress, setSendAddress] = useState<string | undefined>();

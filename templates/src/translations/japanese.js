@@ -1,6 +1,7 @@
 export default {
   nav: {
     characters: '文字',
+    transactions: '取引',
     dark: '暗い',
     language: '言語',
     light: 'ライト',

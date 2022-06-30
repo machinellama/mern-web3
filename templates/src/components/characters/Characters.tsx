@@ -20,6 +20,7 @@ interface ICharacters {
   history: RouteComponentProps;
   id?: number;
   logout: Function;
+  setPage: Function;
 }
 
 export default function (props: ICharacters) {
@@ -125,7 +126,10 @@ export default function (props: ICharacters) {
                 variant="outlined"
                 className="dark:text-gray-100"
                 disableElevation
-                onClick={() => props.history.push('/payment')}
+                onClick={() => {
+                  props.history.push('/transactions');
+                  props.setPage('/transactions');
+                }}
               >
                 {translations.payment?.makePayment || ''}
               </Button>
