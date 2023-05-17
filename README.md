@@ -1,3 +1,5 @@
+# This repo is deprecated and will no longer be updated
+
 # machinellama/MERN-Web3
 
 Quickly create a simple MERN stack application with key features pre-built and ready to run.
